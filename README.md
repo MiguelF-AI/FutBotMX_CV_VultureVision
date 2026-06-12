@@ -11,19 +11,19 @@ Este documento contiene la especificación de arquitectura, diseño de datos, es
 
 El pipeline de datos está estructurado en dos grandes bloques tecnológicos autónomos conectados por un contrato de datos estricto (`partido_data.json`):
 
-+---------------------------------------------------------------------------------------+
-|                                1. MOTOR DE EXTRACCIÓN                                 |
-|  [Video Crudo .mp4] -> [SAM 3 Fine-Tuned (Nube)] -> [Homografía y Análisis (Python)]  |
-+---------------------------------------------------------------------------------------+
-                                           |
-                                           v
-                             [Archivo de Datos: .json]
-                                           |
-                                           v
-+---------------------------------------------------------------------------------------+
-|                                2. VISUALIZADOR WEB 3D                                 |
-|  [Next.js Core] -> [Control de Línea de Tiempo] -> [Renderizado 3D (WebGL / R3F)]     |
-+---------------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------+<br>
+|                                1. MOTOR DE EXTRACCIÓN                                 |<br>
+|  [Video Crudo .mp4] -> [SAM 3 Fine-Tuned (Nube)] -> [Homografía y Análisis (Python)]  |<br>
++---------------------------------------------------------------------------------------+<br>
+                                           |<br>
+                                           v<br>
+                             [Archivo de Datos: .json]<br>
+                                           |<br>
+                                           v<br>
++---------------------------------------------------------------------------------------+<br>
+|                                2. VISUALIZADOR WEB 3D                                 |<br>
+|  [Next.js Core] -> [Control de Línea de Tiempo] -> [Renderizado 3D (WebGL / R3F)]     |<br>
++---------------------------------------------------------------------------------------+<br>
 
 
 ### Bloque 1: Motor de Extracción (Ecosistema Python)
@@ -40,41 +40,41 @@ El pipeline de datos está estructurado en dos grandes bloques tecnológicos aut
 
 ## 2. Estructura del Repositorio (Monorepo)
 
-futbotmx-scout3d/
-│
-├── ai_engine/                             # Bloque 1: Procesamiento de IA y Datos (Python)
-│   ├── notebooks/
-│   │   └── sam3_fine_tuning_inference.ipynb # Cuaderno de Colab para Fine-Tuning e Inferencia de máscaras
-│   ├── scripts/
-│   │   ├── homography_translator.py       # Conversión de coordenadas de píxeles a metros reales
-│   │   ├── spatial_analysis.py            # Script encargado de calcular Voronoi y heurísticas lógicas
-│   │   └── json_builder.py                # Ensamblador del archivo JSON de salida
-│   ├── data/
-│   │   ├── raw_video.mp4                  # Muestra de video original de la Copa FutBotMX
-│   │   └── partido_data.json              # Fichero de datos estructurado resultante
-│   └── requirements.txt                   # Librerías necesarias (opencv-python, scipy, torch)
-│
-├── web_dashboard/                         # Bloque 2: Interfaz e Interacción 3D (Next.js)
-│   ├── app/
-│   │   ├── layout.tsx                     # Estructura e hidratación global de la aplicación
-│   │   ├── page.tsx                       # Dashboard principal con controles de UI y feed de eventos
-│   │   └── globals.css                    # Estilos CSS tailwind globales
-│   ├── components/
-│   │   ├── ui/                            # Componentes de la interfaz de usuario (Timeline, Selector, Logs)
-│   │   └── canvas3d/                      # Módulo de renderizado de Three.js
-│   │       ├── Scene.tsx                  # Configuración de Luces, Cámara Orbital y niebla de la escena
-│   │       ├── Field.tsx                  # Modelo geométrico plano de la cancha con líneas reglamentarias
-│   │       ├── RobotPrimitive.tsx         # Representación geométrica optimizada del robot (Caja + Textura)
-│   │       ├── Ball.tsx                   # Esfera naranja de alta velocidad con interpolación lineal
-│   │       └── VoronoiOverlay.tsx         # Mallas planas translúcidas de los polígonos de dominio espacial
-│   ├── public/
-│   │   └── data/                          # Directorio para almacenar los partidos disponibles
-│   │       ├── partido_final_t1.json
-│   │       └── partido_final_t2.json
-│   └── package.json                       # Dependencias de npm (@react-three/fiber, @react-three/drei, three, next)
-│
-├── README.md                              # Guía de instalación, reproducción y justificación del proyecto
-└── LICENSE                                # Licencia de código abierto de tipo MIT
+futbotmx-scout3d/<br>
+│<br>
+├── ai_engine/                             # Bloque 1: Procesamiento de IA y Datos (Python)<br>
+│   ├── notebooks/<br>
+│   │   └── sam3_fine_tuning_inference.ipynb # Cuaderno de Colab para Fine-Tuning e Inferencia de máscaras<br>
+│   ├── scripts/<br>
+│   │   ├── homography_translator.py       # Conversión de coordenadas de píxeles a metros reales<br>
+│   │   ├── spatial_analysis.py            # Script encargado de calcular Voronoi y heurísticas lógicas<br>
+│   │   └── json_builder.py                # Ensamblador del archivo JSON de salida<br>
+│   ├── data/<br>
+│   │   ├── raw_video.mp4                  # Muestra de video original de la Copa FutBotMX<br>
+│   │   └── partido_data.json              # Fichero de datos estructurado resultante<br>
+│   └── requirements.txt                   # Librerías necesarias (opencv-python, scipy, torch)<br>
+│<br>
+├── web_dashboard/                         # Bloque 2: Interfaz e Interacción 3D (Next.js)<br>
+│   ├── app/<br>
+│   │   ├── layout.tsx                     # Estructura e hidratación global de la aplicación<br>
+│   │   ├── page.tsx                       # Dashboard principal con controles de UI y feed de eventos<br>
+│   │   └── globals.css                    # Estilos CSS tailwind globales<br>
+│   ├── components/<br>
+│   │   ├── ui/                            # Componentes de la interfaz de usuario (Timeline, Selector, Logs)<br>
+│   │   └── canvas3d/                      # Módulo de renderizado de Three.js<br>
+│   │       ├── Scene.tsx                  # Configuración de Luces, Cámara Orbital y niebla de la escena<br>
+│   │       ├── Field.tsx                  # Modelo geométrico plano de la cancha con líneas reglamentarias<br>
+│   │       ├── RobotPrimitive.tsx         # Representación geométrica optimizada del robot (Caja + Textura)<br>
+│   │       ├── Ball.tsx                   # Esfera naranja de alta velocidad con interpolación lineal<br>
+│   │       └── VoronoiOverlay.tsx         # Mallas planas translúcidas de los polígonos de dominio espacial<br>
+│   ├── public/<br>
+│   │   └── data/                          # Directorio para almacenar los partidos disponibles<br>
+│   │       ├── partido_final_t1.json<br>
+│   │       └── partido_final_t2.json<br>
+│   └── package.json                       # Dependencias de npm (@react-three/fiber, @react-three/drei, three, next)<br>
+│<br>
+├── README.md                              # Guía de instalación, reproducción y justificación del proyecto<br>
+└── LICENSE                                # Licencia de código abierto de tipo MIT<br>
 
 
 ---
